@@ -86,13 +86,7 @@ You can run this code via
 % python3 ocr.py
 ```
 
-You will see the detected text in the output of the command line. The image with text entoured by the box is saved at the given path. You can check it by
-
-```bash
-open path/result.jpg
-```
-
- The running results will be shown in the command line, as follows
+ The detected text will be shown in the command line
 
 ```bash
 [2021/07/01 11:29:13] root INFO: dt_boxes num : 1, elapse : 0.4738023281097412
