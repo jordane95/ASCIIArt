@@ -104,11 +104,17 @@ open imgs/result.jpg
 
 You will see the resulting image like this, with a red box entouring the text detected.
 
-![result](imgs/result.jpg)
+![result](images/result.jpg)
 
 For comparasion convenience, the input image is like this
 
-![input](imgs/input.jpg)
+![input](images/input.jpg)
+
+Based on the result of text detection, we extend the text enclosing text box according to the image size and text lenght. We can extract the region of interest (ROI), and get the following result. The function is implemented in utils.py
+
+![roi](images/roi.jpg)
+
+
 
 ## References
 

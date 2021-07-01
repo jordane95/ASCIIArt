@@ -24,13 +24,13 @@ class CropLayer(object):
 cv.dnn_registerLayer('Crop', CropLayer)
 
 # Load the model.
-net = cv.dnn.readNet("./models/hed/deploy.prototxt", "./models/hed/hed_pretrained_bsds.caffemodel")
+net = cv.dnn.readNet("models/hed/deploy.prototxt", "models/hed/hed_pretrained_bsds.caffemodel")
 
 kWinName = 'Holistically-Nested Edge Detection'
 cv.namedWindow('Input', cv.WINDOW_AUTOSIZE)
 cv.namedWindow(kWinName, cv.WINDOW_AUTOSIZE)
 
-frame = cv.imread("./images/test_image.jpg")
+frame = cv.imread("images/input.jpg")
 cv.imshow('Input', frame)
 
 inp = cv.dnn.blobFromImage(frame, scalefactor=1.0, size=(500, 500),
