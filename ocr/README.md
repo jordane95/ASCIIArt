@@ -60,7 +60,7 @@ from paddleocr import PaddleOCR, draw_ocr
 
 # Also switch the language by modifying the lang parameter
 ocr = PaddleOCR(lang="en") # The model file will be downloaded automatically when executed for the first time
-img_path ='./imgs/test_image.jpg'
+img_path ='images/input.jpg'
 result = ocr.ocr(img_path)
 # Recognition and detection can be performed separately through parameter control
 # result = ocr.ocr(img_path, det=False)  Only perform recognition
@@ -99,7 +99,7 @@ The last line includes the text recognized.
 You can also check the visualization result by entering
 
 ```bash
-open imgs/result.jpg
+open images/result.jpg
 ```
 
 You will see the resulting image like this, with a red box entouring the text detected.

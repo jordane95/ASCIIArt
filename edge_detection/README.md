@@ -68,7 +68,7 @@ The code is implemented in canny.py
 import cv2 as cv
 
 # input the path of your own image here
-image = cv.imread('./images/test_image.jpg')
+image = cv.imread('images/input.jpg')
 gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
 blurred = cv.GaussianBlur(gray, (5, 5), 0)
 # change the lower and upper value of canny here
@@ -136,13 +136,13 @@ class CropLayer(object):
 cv.dnn_registerLayer('Crop', CropLayer)
 
 # Load the model, please change the path accordingly
-net = cv.dnn.readNet("./models/hed/deploy.prototxt", "./models/hed/hed_pretrained_bsds.caffemodel")
+net = cv.dnn.readNet("models/hed/deploy.prototxt", "models/hed/hed_pretrained_bsds.caffemodel")
 
 kWinName = 'Holistically-Nested Edge Detection'
 cv.namedWindow('Input', cv.WINDOW_AUTOSIZE)
 cv.namedWindow(kWinName, cv.WINDOW_AUTOSIZE)
 
-frame = cv.imread("./images/test_image.jpg")
+frame = cv.imread("images/input.jpg")
 cv.imshow('Input', frame)
 
 inp = cv.dnn.blobFromImage(frame, scalefactor=1.0, size=(500, 500),
