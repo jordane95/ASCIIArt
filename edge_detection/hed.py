@@ -44,5 +44,8 @@ out = cv.resize(out, (frame.shape[1], frame.shape[0]))
 cv.imwrite("images/hed.jpg", out*255)
 cv.imshow(kWinName, out)
 
+# print("Shape of input:", frame.shape)
+# print("Shape of output:", out.shape)
+# print(out)
 cv.waitKey(0)
 
