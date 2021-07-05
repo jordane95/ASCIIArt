@@ -37,17 +37,16 @@ roi.save('images/roi.jpg')
 box = boxes[0]
 text = txts[0]
 text_len = len(text)
-print(text_len)
+print("text len: ", text_len)
 
 image = cv.imread("images/canny.jpg")
 image = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
 
-print(image)
-print(image.shape)
+# print(image)
+# print(image.shape)
 
-Tw, Th, hor, ver = segment(image, box, text_len) 
+Tw, Th, Rw, Rh = segment(image, box, text_len) 
 
 print("Tw: %d, Th: %d" % (Tw, Th))
 
-draw_patch(image, int(box[0][0]-hor*Tw), int(box[0][1]-ver*Th), Tw, Th, text_len, hor, ver)
-
+draw_patch(image, int(box[0][0]-(Rw-text_len)//2*Tw), int(box[0][1]-(Rh-1)//2*Th), Tw, Th, Rw, Rh)
