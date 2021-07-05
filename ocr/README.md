@@ -114,7 +114,7 @@ Based on the result of text detection, we extend the text enclosing text box acc
 
 ![roi](images/roi.jpg)
 
-
+Note: The PaddleOCR utilize the CRNN for text recognition, thus it can only recognize *single* line text.
 
 ## References
 

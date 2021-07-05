@@ -1,5 +1,5 @@
 from paddleocr import PaddleOCR, draw_ocr
-from utils import get_bounds 
+from utils import * 
 import numpy as np
 
 # Also switch the language by modifying the lang parameter
@@ -23,6 +23,8 @@ im_show = draw_ocr(image, boxes)
 im_show = Image.fromarray(im_show)
 im_show.save('images/result.jpg')
 
+
+# ROI extraction
 image_array = np.array(image)
 H, W, channel = image_array.shape
 x_min, x_max, y_min, y_max = get_bounds(boxes, W, H)
@@ -31,4 +33,21 @@ roi = Image.fromarray(sliced_array.astype('uint8')).convert('RGB')
 roi.save('images/roi.jpg')
 
 
+### Patching part
+box = boxes[0]
+text = txts[0]
+text_len = len(text)
+print(text_len)
+
+image = cv.imread("images/canny.jpg")
+image = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
+
+print(image)
+print(image.shape)
+
+Tw, Th, hor, ver = segment(image, box, text_len) 
+
+print("Tw: %d, Th: %d" % (Tw, Th))
+
+draw_patch(image, int(box[0][0]-hor*Tw), int(box[0][1]-ver*Th), Tw, Th, text_len, hor, ver)
 
