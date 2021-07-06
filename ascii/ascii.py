@@ -1,7 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 import cv2 as cv
-
+from metrics import SAD
 
 def preprocess_ascii(Tw=17, Th=37, font_size=24, mode="L", more_char=True):
     font = ImageFont.truetype('fonts/Menlo.ttc', size=font_size)
@@ -26,22 +26,21 @@ def preprocess_ascii(Tw=17, Th=37, font_size=24, mode="L", more_char=True):
         # print(img_data.shape)
         # print(img_data)
         letters[i] = img_data
+    # letters.pop(64)
+    # letters.pop(37)
     return letters
-
-def argmin(d):
-    if not d: return None
-    min_val = min(d.values())
-    return [k for k in d if d[k] == min_val][0]
-
-def SAD(patch1, patch2):
-    # calculate the Sum of Absolute Difference of two patches
-    return np.sum(np.abs(patch1-patch2))
 
 def image_to_ascii(image, x0, y0, Tw, Th, Rw, Rh, letters):
     # print(image.shape)
     # for line in image:
     #     print(line)
+    def argmin(d):
+        if not d: return None
+        min_val = min(d.values())
+        return [k for k in d if d[k] == min_val][0]
+    
     result = ""
+    loss = 0
     for i in range(Rh):
         for j in range(Rw):
             # print("position: i = %d, j = %d" % (i, j))
@@ -52,15 +51,17 @@ def image_to_ascii(image, x0, y0, Tw, Th, Rw, Rh, letters):
             # print(distances)
             best_match = argmin(distances)
             result += chr(best_match)
+            loss += distances[best_match]
         result += "\n"
     result = result[:-1]
-    return result
+    loss /= (Rw*Rh)
+    return result, loss
 
 def post_process(result, text, start, save_path="result.txt"):
-    text_len = len(text)
-    # replace the corrsponding location with text from OCR
-    end = start+text_len
-    result = result[:start]+text+result[end:]
+    if text:
+        # replace the corrsponding location with text from OCR
+        end = start+len(text)
+        result = result[:start]+text+result[end:]
     # save the result in result.txt
     fp = open(save_path, 'w', encoding='utf8')
     fp.write(result)
@@ -69,7 +70,7 @@ def post_process(result, text, start, save_path="result.txt"):
 
 if __name__ == "__main__":
     # pre process
-    letters = preprocess_ascii()
+    letters = preprocess_ascii(more_char=False)
     canny = cv.imread("images/hed.jpg")
     canny = cv.cvtColor(canny, cv.COLOR_BGR2GRAY)
     # ascii matching
@@ -80,6 +81,6 @@ if __name__ == "__main__":
     Rw = 24
     Rh = 5
     text_len = len(text)
-    post_process(limit, text, start=(Rw+1)*((Rh-1)//2)+(Rw-text_len)//2+1, save_path="limit.txt")
-    post_process(whole, text, start=7*40+25, save_path="whole.txt")
+    post_process(limit, text, start=(Rw+1)*((Rh-1)//2)+(Rw-text_len)//2+1, save_path="results/limit.txt")
+    post_process(whole, text, start=7*40+25, save_path="results/whole.txt")
 

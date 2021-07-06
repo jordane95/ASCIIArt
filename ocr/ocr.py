@@ -50,3 +50,9 @@ Tw, Th, Rw, Rh = segment(image, box, text_len)
 print("Tw: %d, Th: %d" % (Tw, Th))
 
 draw_patch(image, int(box[0][0]-(Rw-text_len)//2*Tw), int(box[0][1]-(Rh-1)//2*Th), Tw, Th, Rw, Rh)
+
+
+### Text mask
+hed = cv.imread('images/hed.jpg')
+masked_hed = mask(hed, box)
+cv.imwrite("images/masked_hed.jpg", masked_hed)

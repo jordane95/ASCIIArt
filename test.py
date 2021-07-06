@@ -1,4 +1,4 @@
 # This program will simulate the overall pipeline of the system
-import sys
-sys.path.extend("edge_detection", "ocr", "ascii")
-from ocr import 
+a = [1, 0, 2]
+
+print(a>0)

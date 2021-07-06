@@ -47,3 +47,12 @@ def draw_patch(image, x0, y0, Tw, Th, Rw, Rh):
     cv.waitKey(0)
     return None
 
+def mask(image, box):
+    image = np.asarray(image)
+    xs = np.array(box)[:, 0]
+    ys = np.array(box)[:, 1]
+    x_min, x_max, y_min, y_max = round(min(xs)), round(max(xs)), round(min(ys)), round(max(ys))
+    print(x_max, x_min)
+    print(image.shape)
+    image[y_min:y_max, x_min:x_max] = np.zeros((y_max-y_min, x_max-x_min, 3))
+    return image

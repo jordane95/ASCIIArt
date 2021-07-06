@@ -71,6 +71,26 @@ The text resolution is 5*24, yields 120.
 
 The result is not as appeling in contrast to the result of 640 resolution, mainly to blame the patch segmentation. Another approach is to perform high resolution matching, and do a sub sampling to extract the region of interest with in 140 character. The key is to identify the position of text and logo in the ASCII encoding. 
 
+
+
+You can use search.py to do an exhaustif search over the segmentation space, you can compare the visual effect via looking into whole_i.txt and the normalized loss via the output of the program in the command line.
+
+```bash
+Processing the 1 th candidate, loss : 31086.26
+Processing the 2 th candidate, loss : 31150.68
+Processing the 3 th candidate, loss : 31463.00
+Processing the 4 th candidate, loss : 31688.72
+Processing the 5 th candidate, loss : 31793.03
+Processing the 6 th candidate, loss : 31893.90
+Processing the 7 th candidate, loss : 32023.44
+Processing the 8 th candidate, loss : 32201.70
+Processing the 9 th candidate, loss : 32348.29
+Processing the 10 th candidate, loss : 32598.80
+...
+```
+
+Fortunately, we observe a cosistency between the loss and the visual effect, implicating that the metric is satisfactory.
+
 ## TODO
 
 * ASCII gylph preprocessing
@@ -88,6 +108,10 @@ The result is not as appeling in contrast to the result of 640 resolution, mainl
 * Gylph matching
 
   Such as ~~SAD~~, NCC, HOG, distance transformation, etc
+  
+* Search
+
+* Adaptive parameterization
 
 ## Reference
 
