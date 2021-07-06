@@ -70,7 +70,7 @@ def post_process(result, text, start, save_path="result.txt"):
 
 if __name__ == "__main__":
     # pre process
-    letters = preprocess_ascii(more_char=True)
+    letters = preprocess_ascii(more_char=False)
     canny = cv.imread("images/hed.jpg")
     canny = cv.cvtColor(canny, cv.COLOR_BGR2GRAY)
     # ascii matching
