@@ -70,12 +70,12 @@ def post_process(result, text, start, save_path="result.txt"):
 
 if __name__ == "__main__":
     # pre process
-    letters = preprocess_ascii(more_char=False)
+    letters = preprocess_ascii(more_char=True)
     canny = cv.imread("images/hed.jpg")
     canny = cv.cvtColor(canny, cv.COLOR_BGR2GRAY)
     # ascii matching
-    whole = image_to_ascii(canny, x0=0, y0=0, Tw=17, Th=37, Rw=40, Rh=12, letters=letters)
-    limit = image_to_ascii(canny, x0=288-6*17, y0=268-37*2, Tw=17, Th=37, Rw=24, Rh=5, letters=letters)
+    whole, loss = image_to_ascii(canny, x0=0, y0=0, Tw=17, Th=37, Rw=40, Rh=12, letters=letters)
+    limit, loss = image_to_ascii(canny, x0=288-6*17, y0=268-37*2, Tw=17, Th=37, Rw=24, Rh=5, letters=letters)
     # post process
     text = 'PSYANGJI.COM'
     Rw = 24

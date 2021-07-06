@@ -43,3 +43,51 @@ ASCIIArt
 ├── README.md                               // Documentation of the whole project
 ...
 ```
+
+# Example
+
+Here is one example of our system.
+
+This is the input image, downloaded arbitrarily from [internet](https://www.psyangji.com/15209.html)
+
+![input](edge_detection/images/input.jpg)
+
+The module of edge detection gives us
+
+![hed](edge_detection/images/hed.jpg)
+
+The module de OCR gives us
+
+![ocr](ocr/images/result.jpg)
+
+and the text content in the command line
+
+```bash
+[[[288.0, 268.0], [491.0, 268.0], [491.0, 305.0], [288.0, 305.0]], ('PSYANGJI.COM', 0.97459394)]
+```
+
+Based on these informations, we can do an image segmentation to get the image patches
+
+![patch](ocr/images/canny_patch.jpg)
+
+The ASCII matching module can do the best match for each patch, yielding the final ASCII encoding result
+
+```
+  | F      ▕_ ,,, ,,, ▕   ╲      Γ      
+  ! L      ▕B| .   .┤∫@    2'  ▕Γ       
+  !         F∫│     []@    |┐   Γ       
+  │         F|│     |]H    q"  ▕L       
+  ]         L|│     []@    |_  j]       
+  │ L      ⌒Γ``"""""``▕M   M==∽%8      ,
+n ├W"""""""""^^     ^^"""""""""^"""""M"C
+@ ├@         ╭┘╲  PSYANGJI.COM       | ┴
+  ]Q     ―  ▕~──┴                    ╰ p
+  │▕  ▕E    ┴,―' ▕E╰┴┴―E┤ ▕@Γ' ′`▕'  ▕ P
+――┤▕  ▕@ ▕g>⌒Wy _▕△_ _H@╯  E   │╭={  ▕ `
+. │▕  ▕ш▕▕M   ]┌'' ▕⌒,▕@   "p ,│1―I  ▕ │
+```
+
+## TODO
+
+* Modularization
+
