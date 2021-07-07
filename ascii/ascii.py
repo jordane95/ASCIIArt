@@ -54,7 +54,7 @@ def image_to_ascii(image, x0, y0, Tw, Th, Rw, Rh, letters):
             loss += distances[best_match]
         result += "\n"
     result = result[:-1]
-    loss /= (Rw*Rh)
+    loss /= ((Rw*Rh)*(Tw*Th))
     return result, loss
 
 def post_process(result, text, start, save_path="result.txt"):
@@ -69,18 +69,22 @@ def post_process(result, text, start, save_path="result.txt"):
     return result
 
 if __name__ == "__main__":
+    # parameters determined by the ocr module or manually
+    Tw = 17
+    Th = 37
     # pre process
-    letters = preprocess_ascii(more_char=False)
-    canny = cv.imread("images/hed.jpg")
-    canny = cv.cvtColor(canny, cv.COLOR_BGR2GRAY)
+    letters = preprocess_ascii(Tw=Tw, Th=Th, more_char=False)
+    structure_map = cv.imread("images/hed.jpg")
+    structure_map = cv.cvtColor(structure_map, cv.COLOR_BGR2GRAY)
+    H, W = structure_map.shape
     # ascii matching
-    whole, loss = image_to_ascii(canny, x0=0, y0=0, Tw=17, Th=37, Rw=40, Rh=12, letters=letters)
-    limit, loss = image_to_ascii(canny, x0=288-6*17, y0=268-37*2, Tw=17, Th=37, Rw=24, Rh=5, letters=letters)
+    whole, loss = image_to_ascii(structure_map, x0=0, y0=0, Tw=Tw, Th=Th, Rw=W//Tw, Rh=H//Th, letters=letters)
+    # limit, loss = image_to_ascii(structure_map, x0=288-6*17, y0=268-37*2, Tw=Tw, Th=Th, Rw=W//Tw, Rh=H//Th, letters=letters)
     # post process
-    text = 'PSYANGJI.COM'
-    Rw = 24
-    Rh = 5
-    text_len = len(text)
-    post_process(limit, text, start=(Rw+1)*((Rh-1)//2)+(Rw-text_len)//2+1, save_path="results/limit.txt")
-    post_process(whole, text, start=7*40+25, save_path="results/whole.txt")
+    # text = 'PSYANGJI.COM'
+    # Rw = 24
+    # Rh = 5
+    # text_len = len(text)
+    # post_process(limit, text, start=(Rw+1)*((Rh-1)//2)+(Rw-text_len)//2+1, save_path="results/limit.txt")
+    post_process(whole, text=None, start=7*40+25, save_path="results/whole.txt")
 

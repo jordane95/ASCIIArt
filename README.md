@@ -1,11 +1,11 @@
 # ASCIIArt
 Converting an RGB signboard image to its ASCII encoding within 140 characters.
 
-# Example
+## Example
 
-Here is one example of our system.
+Here is an example of our system.
 
-This is the input image, downloaded arbitrarily from [internet](https://www.psyangji.com/15209.html)
+This is the input image, downloaded from [Internet](https://www.psyangji.com/15209.html)
 
 ![input](edge_detection/images/input.jpg)
 
@@ -44,7 +44,19 @@ n [W"""""""""^^     ^^"""""""""^"""""M"C
 . ]    ] HM   ] '' -~,I@   "p ,.1TI  j  
 ```
 
+## Requirements
+
+* python==3.7.0
+* numpy==1.21.0
+* opencv-python==4.5.2.54
+* opencv-contrib-python==4.2.0.32
+* paddlepaddle==2.1.1
+* paddleocr==2.0.6
+* pillow==8.2.0
+* sklearn
+
 ## Structure
+
 ```
 ASCIIArt
 ├── edge_detection                          // Edge detection module
@@ -91,3 +103,4 @@ ASCIIArt
 
 * Modularization
 
+* Optimization

@@ -27,9 +27,6 @@ def segment(image, text_box, text_len, max_grid=140):
     Th = round(y_max-y_min)
     Tw = round((x_max-x_min)/text_len)
     # segment the image into patches starting from text box
-    ratio = (np.sqrt(max_grid/text_len)-1)/2
-    # hor = int(text_len*ratio) # of grids expanded horizontally
-    # ver = int(ratio) # of grids expanded vertically
     Rw = 2*text_len
     Rh = 5
     return Tw, Th, Rw, Rh

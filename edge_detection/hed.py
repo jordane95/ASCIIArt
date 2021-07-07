@@ -21,31 +21,39 @@ class CropLayer(object):
     def forward(self, inputs):
         return [inputs[0][:,:,self.ystart:self.yend,self.xstart:self.xend]]
 
-cv.dnn_registerLayer('Crop', CropLayer)
 
-# Load the model.
-net = cv.dnn.readNet("models/hed/deploy.prototxt", "models/hed/hed_pretrained_bsds.caffemodel")
+def hed(img_path='images/input.jpg', save_path='images/'):
+    cv.dnn_registerLayer('Crop', CropLayer)
 
-kWinName = 'Holistically-Nested Edge Detection'
-cv.namedWindow('Input', cv.WINDOW_AUTOSIZE)
-cv.namedWindow(kWinName, cv.WINDOW_AUTOSIZE)
+    # Load the model.
+    net = cv.dnn.readNet("models/hed/deploy.prototxt", "models/hed/hed_pretrained_bsds.caffemodel")
 
-frame = cv.imread("images/input.jpg")
-cv.imshow('Input', frame)
+    # kWinName = 'Holistically-Nested Edge Detection'
+    # cv.namedWindow('Input', cv.WINDOW_AUTOSIZE)
+    # cv.namedWindow(kWinName, cv.WINDOW_AUTOSIZE)
 
-inp = cv.dnn.blobFromImage(frame, scalefactor=1.0, size=(500, 500),
-                           mean=(104.00698793, 116.66876762, 122.67891434),
-                           swapRB=False, crop=False)
-net.setInput(inp)
-out = net.forward()
-out = out[0, 0]
-out = cv.resize(out, (frame.shape[1], frame.shape[0]))
+    image = cv.imread(img_path)
+    # cv.imshow('Input', image)
 
-cv.imwrite("images/hed.jpg", out*255)
-cv.imshow(kWinName, out)
+    inp = cv.dnn.blobFromImage(image, scalefactor=1.0, size=(500, 500),
+                            mean=(104.00698793, 116.66876762, 122.67891434),
+                            swapRB=False, crop=False)
+    net.setInput(inp)
+    out = net.forward()
+    out = out[0, 0]
+    out = cv.resize(out, (image.shape[1], image.shape[0]))
 
-# print("Shape of input:", frame.shape)
-# print("Shape of output:", out.shape)
-# print(out)
-cv.waitKey(0)
+    cv.imwrite(save_path+"hed.jpg", out*255)
+    # cv.imshow(kWinName, out)
 
+    # print("Shape of input:", frame.shape)
+    # print("Shape of output:", out.shape)
+    # print(out)
+    # cv.waitKey(0)
+
+    cv.imwrite(save_path+'rev_hed.jpg', 255*(1-out))
+
+    # cv.waitKey(0)
+
+if __name__ == "__main__":
+    hed(img_path='images/africa.jpg')
