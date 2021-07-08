@@ -32,3 +32,23 @@ def NCC(patch1, patch2, Nw=10, Nh=10):
 
 def HOG(patch1, patch2):
     return 0
+
+
+class ShapeContext:
+    def __init__(n_logr=5, n_theta=12):
+        return None
+
+    def calc_sc(point, patch):
+        return None
+
+
+        
+def ShapeContext(patch, n_logr=5, n_theta=12):
+    Tw, Th = patch.shape
+    result = []
+    for i in range(0, Tw, 2):
+        for j in range(0, Th, 2):
+            point = patch[i, j]
+            sc = calc_sc(point, patch)
+            result.extend(sc)
+    return np.array(result)

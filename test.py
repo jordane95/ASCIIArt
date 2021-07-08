@@ -1,4 +1,9 @@
 # This program will simulate the overall pipeline of the system
-a = [1, 0, 2]
+from edge_detection.hed import hed
+import cv2 as cv
 
-print(a>0)
+structure_map = hed()
+# structure_map = cv.cvtColor(structure_map, cv.COLOR_BGR2GRAY)
+
+cv.imshow("S", structure_map)
+cv.waitKey(0)

@@ -53,6 +53,8 @@ def hed(img_path='images/input.jpg', save_path='images/'):
 
     cv.imwrite(save_path+'rev_hed.jpg', 255*(1-out))
 
+    return out
+
     # cv.waitKey(0)
 
 if __name__ == "__main__":

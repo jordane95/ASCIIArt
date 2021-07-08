@@ -23,6 +23,7 @@ def canny(img_path='images/input.jpg', save_path='images/'):
     cv.imwrite(save_path+'rev_canny_coarse.jpg', reversed_canny_coarse)
 
     # cv.waitKey(0)
+    return canny
 
 if __name__=="__main__":
     canny(img_path='images/africa.jpg')
