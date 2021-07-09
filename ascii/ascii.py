@@ -1,7 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 import numpy as np
 import cv2 as cv
-from metrics import SAD
+from metrics import SAD, NCC
 
 def preprocess_ascii(Tw=17, Th=37, font_size=24, mode="L", more_char=True):
     font = ImageFont.truetype('fonts/Menlo.ttc', size=font_size)
@@ -30,7 +30,7 @@ def preprocess_ascii(Tw=17, Th=37, font_size=24, mode="L", more_char=True):
     # letters.pop(37)
     return letters
 
-def image_to_ascii(image, x0, y0, Tw, Th, Rw, Rh, letters):
+def image_to_ascii(image, x0, y0, Tw, Th, Rw, Rh, letters, metrics="SAD"):
     # print(image.shape)
     # for line in image:
     #     print(line)
@@ -38,6 +38,11 @@ def image_to_ascii(image, x0, y0, Tw, Th, Rw, Rh, letters):
         if not d: return None
         min_val = min(d.values())
         return [k for k in d if d[k] == min_val][0]
+    
+    def argmax(d):
+        if not d: return None
+        max_val = max(d.values())
+        return [k for k in d if d[k] == max_val][0]
     
     result = ""
     loss = 0
@@ -47,9 +52,13 @@ def image_to_ascii(image, x0, y0, Tw, Th, Rw, Rh, letters):
             # get the current patch of the image
             patch = image[y0+i*Th:y0+(i+1)*Th, x0+j*Tw:x0+(j+1)*Tw]
             # print("Patch: \n", patch)
-            distances = {l:SAD(patch, letters[l]) for l in letters}
-            # print(distances)
-            best_match = argmin(distances)
+            if metrics == "SAD":
+                distances = {l:SAD(patch, letters[l]) for l in letters}
+                # print(distances)
+                best_match = argmin(distances)
+            if metrics == "NCC":
+                similarity = {l:NCC(patch, letters[l]) for l in letters}
+                best_match = argmax(similarity)
             result += chr(best_match)
             loss += distances[best_match]
         result += "\n"
