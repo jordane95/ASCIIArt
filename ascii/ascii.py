@@ -83,7 +83,7 @@ if __name__ == "__main__":
     Th = 37
     # pre process
     letters = preprocess_ascii(Tw=Tw, Th=Th, more_char=False)
-    structure_map = cv.imread("images/hed.jpg")
+    structure_map = cv.imread("../images/hed.jpg")
     structure_map = cv.cvtColor(structure_map, cv.COLOR_BGR2GRAY)
     H, W = structure_map.shape
     # ascii matching
@@ -95,5 +95,5 @@ if __name__ == "__main__":
     # Rh = 5
     # text_len = len(text)
     # post_process(limit, text, start=(Rw+1)*((Rh-1)//2)+(Rw-text_len)//2+1, save_path="results/limit.txt")
-    post_process(whole, text=None, start=7*40+25, save_path="results/whole.txt")
+    post_process(whole, text=None, start=7*40+25, save_path="../results/whole.txt")
 

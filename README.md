@@ -1,33 +1,17 @@
 # ASCIIArt
 Converting an RGB signboard image to its ASCII encoding within 140 characters.
 
+The whole pipeline is mainly composed of 3 modules, edge detection, ocr and ascii matching. For more detail, please read the documentation in each folder.
+
 ## Example
 
 Here is an example of our system.
 
 This is the input image, downloaded from [Internet](https://www.psyangji.com/15209.html)
 
-![input](edge_detection/images/input.jpg)
+![input](images/input.jpg)
 
-The module of edge detection gives us
-
-![hed](edge_detection/images/hed.jpg)
-
-The module de OCR gives us
-
-![ocr](ocr/images/result.jpg)
-
-and the text content in the command line
-
-```bash
-[[[288.0, 268.0], [491.0, 268.0], [491.0, 305.0], [288.0, 305.0]], ('PSYANGJI.COM', 0.97459394)]
-```
-
-Based on these informations, we can do an image segmentation to get the image patches
-
-![patch](ocr/images/canny_patch.jpg)
-
-The ASCII matching module can find the best matching character for each patch. Combined with the result of OCR, we can get the final ASCII encoding result:
+After processed by the 3 modules, we can get the final ASCII encoding result:
 
 ```
   | F       _ ,,, ,,, _   %      P      
@@ -44,34 +28,23 @@ n [W"""""""""^^     ^^"""""""""^"""""M"C
 . ]    ] HM   ] '' -~,I@   "p ,.1TI  j  
 ```
 
-## Requirements
+# Usage
 
-* python==3.7.0
-* numpy==1.21.0
-* opencv-python==4.5.2.54
-* opencv-contrib-python==4.2.0.32
-* paddlepaddle==2.1.1
-* paddleocr==2.0.6
-* pillow==8.2.0
-* sklearn
+1. run pip install -r requirements.txt
+2. put your image in /images/folder
+3. sh run.sh
+4. your results will be saved in the /results/ folder
 
 ## Structure
 
 ```
 ASCIIArt
-├── edge_detection                          // Edge detection module
-│   ├── images                              // Images
-│   │   ├── input.jpg                       // Input image
-│   │   ...
-│   ├── models/hed                          // Pretrained models
-│   │   ├── hed_pretrained_bsds.caffemodel  // model parameters
-│   │   ├── deploy.prototxt                 // model architecture
+├── edge                                    // Edge detection 
 │   ├── hed.py                              // Holistically-Nested Edge Detection
-│   └── canny.py                            // Canny
+│   ├── canny.py                            // Canny
+│   ├── README.md                           // Documentation of the edge detection module
+│   ...
 ├── ocr                                     // OCR module
-│   ├── images                              // Images
-│   │   ├── hed.jpg
-│   │   ...
 │   ├── ocr.py                              // PaddleOCR
 │   ├── utils.py                            // Some useful fonctions
 │   └── README.md                           // Documentation of the OCR module
@@ -82,9 +55,6 @@ ASCIIArt
 │   ├── color.py                            // KMeans color clustering code
 │   └── README.md                           // Documentation of the color extraction module
 ├── ascii                                   // ASCII matching module
-│   ├── images                              // Images
-│   │   ├── hed.jpg
-│   │   ...
 │   ├── fonts                               // Fonts
 │   │   └── Menlo.ttc                       // Menlo monospace font       
 │   ├── results                             // Converting results
@@ -104,3 +74,4 @@ ASCIIArt
 * Modularization
 
 * Optimization
+

@@ -3,7 +3,7 @@ from utils import *
 import numpy as np
 
 
-def ocr(img_path='images/input.jpg'):
+def ocr(img_path='../images/input.jpg'):
     # Also switch the language by modifying the lang parameter
     ocr = PaddleOCR(lang="en") # The model file will be downloaded automatically when executed for the first time
     result = ocr.ocr(img_path)
@@ -22,7 +22,7 @@ def ocr(img_path='images/input.jpg'):
     scores = [line[1][1] for line in result]
     im_show = draw_ocr(image, boxes)
     im_show = Image.fromarray(im_show)
-    im_show.save('images/result.jpg')
+    im_show.save('../images/ocr_result.jpg')
 
 
     # ROI extraction
@@ -31,7 +31,7 @@ def ocr(img_path='images/input.jpg'):
     x_min, x_max, y_min, y_max = get_bounds(boxes, W, H)
     sliced_array = image_array[y_min:y_max, x_min:x_max, :]
     roi = Image.fromarray(sliced_array.astype('uint8')).convert('RGB')
-    roi.save('images/roi.jpg')
+    roi.save('../images/roi.jpg')
 
 
     ### Patching part
@@ -40,7 +40,7 @@ def ocr(img_path='images/input.jpg'):
     text_len = len(text)
     print("text len: ", text_len)
 
-    image = cv.imread("images/canny.jpg")
+    image = cv.imread("../images/canny.jpg")
     image = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
 
     # print(image)
@@ -50,13 +50,13 @@ def ocr(img_path='images/input.jpg'):
 
     print("Tw: %d, Th: %d" % (Tw, Th))
 
-    draw_patch(image, int(box[0][0]-(Rw-text_len)//2*Tw), int(box[0][1]-(Rh-1)//2*Th), Tw, Th, Rw, Rh)
+    # draw_patch(image, int(box[0][0]-(Rw-text_len)//2*Tw), int(box[0][1]-(Rh-1)//2*Th), Tw, Th, Rw, Rh)
 
 
     ### Text mask
-    hed = cv.imread('images/hed.jpg')
+    hed = cv.imread('../images/hed.jpg')
     masked_hed = mask(hed, box)
-    cv.imwrite("images/masked_hed.jpg", masked_hed)
+    cv.imwrite("../images/masked_hed.jpg", masked_hed)
 
 
 if __name__ == '__main__':
