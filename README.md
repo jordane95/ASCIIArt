@@ -1,5 +1,5 @@
 # ASCIIArt
-Converting an RGB signboard image to its ASCII encoding within 140 characters.
+Converting an RGB signboard image to its ASCII encoding.
 
 The whole pipeline is mainly composed of 3 modules, edge detection, ocr and ascii matching. For more detail, please read the documentation in each folder.
 
@@ -30,10 +30,23 @@ n [W"""""""""^^     ^^"""""""""^"""""M"C
 
 # Usage
 
-1. run pip install -r requirements.txt
-2. put your image in /images/folder
-3. sh run.sh
-4. your results will be saved in the /results/ folder
+1. Environment setput
+
+   ```
+   conda create -n asciiart
+   conda activate asciiart
+   pip install -r requirements.txt
+   ```
+
+2. put your image in /images/ folder
+
+3. run the model to do ascii conversion via
+
+   ```
+   sh run.sh
+   ```
+
+4. your results will be saved in the /ascii/results/ folder
 
 ## Structure
 
