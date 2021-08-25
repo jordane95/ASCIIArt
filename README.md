@@ -77,6 +77,7 @@ ASCIIArt
 │   ├── ascii.py                            // Core code
 │   ├── metrics.py                          // Different metrics for patch similarity
 │   ├── search.py                           // Search of different segmentation configuration
+│   ├── tone.py                             // Tone based ascii art
 │   └── README.md                           // Documentation of the ASCII matching module
 ├── README.md                               // Documentation of the whole project
 ...
